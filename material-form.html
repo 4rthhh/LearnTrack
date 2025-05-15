@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Material | Learn Track</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    /* General styles */
+    body {
+      font-family: Arial;
+      font-size: large;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    img {
+      height: 50px;
+    }
+
+    /* Material-specific styles */
+    .material-form-container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #092235;
+    }
+    .form-input, .form-textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+    .form-textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+    .form-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 15px;
+        margin-top: 30px;
+    }
+    .attachment-previews-container {
+      margin-top: 10px;
+      border: 1px solid #eee;
+      border-radius: 4px;
+      padding: 5px;
+    }
+
+    /* Navbar styles */
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 20px;
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+
+    .close-btn {
+        background: none;
+        border: none;
+        color: #092235;
+        font-size: 24px;
+        cursor: pointer;
+        padding: 8px;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.2s;
+    }
+
+    .close-btn:hover {
+        background-color: #f0f0f0;
+    }
+
+    .navbar-title {
+        font-size: 18px;
+        font-weight: 500;
+        color: #092235;
+    }
+
+    .modal-btn {
+        padding: 12px 24px;
+        font-size: 16px;
+        border-radius: 6px;
+        border: none;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        min-width: 120px;
+        height: 45px;
+    }
+
+    .modal-btn-create {
+        background-color: #4285f4;
+        color: white;
+    }
+
+    .modal-btn-create:hover {
+        background-color: #3367d6;
+    }
+
+    .modal-btn-draft {
+        background-color: #f8f9fa;
+        color: #4285f4;
+        border: 1px solid #4285f4;
+    }
+
+    .modal-btn-draft:hover {
+        background-color: #e8f0fe;
+    }
+
+    .modal-btn-cancel {
+        background-color: #f8f9fa;
+        color: #5f6368;
+        border: 1px solid #dadce0;
+    }
+
+    .modal-btn-cancel:hover {
+        background-color: #f1f3f4;
+    }
+
+    /* File upload button styles */
+    .file-upload-btn {
+        padding: 12px 24px;
+        font-size: 16px;
+        background-color: #4285f4;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .file-upload-btn:hover {
+        background-color: #3367d6;
+    }
+
+    /* Toast styles */
+.toast-container {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+}
+
+.toast {
+    min-width: 300px;
+    padding: 16px 24px;
+    border-radius: 8px;
+    background-color: #333;
+    color: white;
+    font-size: 16px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    margin-bottom: 10px;
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+    transform: translateY(100px);
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.toast.success {
+    background-color: #4CAF50;
+}
+
+.toast.error {
+    background-color: #f44336;
+}
+
+.toast.info {
+    background-color: #2196F3;
+}
+  </style>
+</head>
+<body>
+
+  
+
+<nav class="navbar">
+    <button class="close-btn" onclick="window.history.back()">
+        <i class="fas fa-times"></i>
+    </button>
+    <div class="navbar-title">Create Assignment</div>
+    <div style="width: 40px;"></div> <!-- Spacer for alignment -->
+</nav>
+
+<div class="content">
+  
+
+  <div class="content-body">
+    <div class="material-form-container">
+      <form id="materialForm">
+        <div class="form-group">
+          <label class="form-label" for="materialTitle">Material Title</label>
+          <input type="text" id="materialTitle" class="form-input" placeholder="Material title" required>
+          <div class="error-message" id="titleError"></div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Links</label>
+        <div id="linksContainer">
+            <!-- Links will be added here -->
+        </div>
+        <button type="button" class="secondary-btn" onclick="addLink()">
+            <i class="fas fa-plus"></i> Add Link
+        </button>
+    </div>
+
+        <div class="form-group">
+          <label class="form-label" for="materialDescription">Description</label>
+          <textarea id="materialDescription" class="form-textarea" placeholder="Describe the material..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Attachments / Links</label>
+          <div class="file-upload">
+            <label for="fileUpload" class="file-upload-btn">
+              <i class="fas fa-paperclip"></i> Add Files
+              <input type="file" id="fileUpload" style="display: none;" onchange="handleFileUpload(event)" multiple>
+            </label>
+            <button type="button" class="file-upload-btn" onclick="addLink()">
+              <i class="fas fa-link"></i> Add Link
+            </button>
+            <span id="fileName" class="file-name-display">No files attached</span>
+          </div>
+          <div id="attachmentPreviews" class="attachment-previews-container"></div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="modal-btn modal-btn-cancel" onclick="window.history.back()">Cancel</button>
+          <button type="button" class="modal-btn modal-btn-draft" onclick="saveAsDraft()">Save as Draft</button>
+          <button type="submit" class="modal-btn modal-btn-create">Create Material</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div id="toastContainer" class="toast-container"></div>
+
+<script>
+// Handle file uploads
+function handleFileUpload(event) {
+    const files = event.target.files;
+    const previewContainer = document.getElementById('attachmentPreviews');
+    previewContainer.innerHTML = '';
+    
+    if (!files || files.length === 0) {
+        document.getElementById('fileName').textContent = 'No files attached';
+        return;
+    }
+
+    // Validate files
+    const validFiles = Array.from(files).filter(file => {
+        if (file.size > 10 * 1024 * 1024) { // 10MB limit
+            showToast(`File ${file.name} exceeds size limit (10MB)`, 'error');
+            return false;
+        }
+        return true;
+    });
+
+    if (validFiles.length === 0) return;
+
+    // Display previews
+    validFiles.forEach(file => {
+        const preview = createFilePreview(file);
+        previewContainer.appendChild(preview);
+    });
+
+    document.getElementById('fileName').textContent = 
+        `${validFiles.length} file${validFiles.length > 1 ? 's' : ''} attached`;
+}
+
+function createFilePreview(file) {
+    const preview = document.createElement('div');
+    preview.className = 'attachment-preview';
+    
+    if (file.type.startsWith('image/')) {
+        preview.innerHTML = `
+            <div class="attachment-preview-image">
+                <img src="${URL.createObjectURL(file)}" alt="${file.name}">
+            </div>
+            <div class="attachment-info">
+                <div class="attachment-name">${file.name}</div>
+                <div class="attachment-size">${formatFileSize(file.size)}</div>
+            </div>
+            <button class="delete-btn" onclick="removeAttachment(this)">
+                <i class="fas fa-times"></i>
+            </button>
+        `;
+    } else {
+        preview.innerHTML = `
+            <div class="attachment-icon">
+                <i class="fas ${getFileIcon(file.type)}"></i>
+            </div>
+            <div class="attachment-info">
+                <div class="attachment-name">${file.name}</div>
+                <div class="attachment-size">${formatFileSize(file.size)}</div>
+            </div>
+            <button class="delete-btn" onclick="removeAttachment(this)">
+                <i class="fas fa-times"></i>
+            </button>
+        `;
+    }
+    
+    return preview;
+}
+
+// Add a link
+function addLink() {
+  const link = prompt('Enter link URL:');
+  if (link) {
+    const previewContainer = document.getElementById('attachmentPreviews');
+    const linkDiv = document.createElement('div');
+    linkDiv.innerHTML = `<a href="${link}" target="_blank">${link}</a>`;
+    previewContainer.appendChild(linkDiv);
+
+    document.getElementById('fileName').textContent = 'Link added';
+  }
+}
+
+// Handle form submission
+document.getElementById('materialForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  createMaterial();
+});
+
+async function createMaterial() {
+  const title = document.getElementById('materialTitle').value.trim();
+  const description = document.getElementById('materialDescription').value.trim();
+  const classCode = localStorage.getItem('currentClassCode');
+
+  if (!title) {
+    alert('Material title is required.');
+    return;
+  }
+
+  const material = {
+    id: Date.now(),
+    classCode,
+    title,
+    description,
+    type: 'material',
+    createdAt: new Date().toISOString(),
+    status: 'published'
+  };
+
+  const materialData = {
+  CLASS_CODE: classCode,
+  TITLE: title,
+  WORKCLASSTYPE: 'material',
+  DESCRIPTION: description,
+  CREATED_AT: new Date().toISOString(),
+  STATUS: 'published'
+};
+
+  try {
+    const response = await fetch('http://localhost:3000/create-workclass', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(materialData)
+    });
+  } catch (error) {
+    alert(error.message);
+  }
+
+
+  let workclasses = JSON.parse(localStorage.getItem('workclasses')) || [];
+  workclasses.push(material);
+  localStorage.setItem('workclasses', JSON.stringify(workclasses));
+
+  alert('Material created successfully!');
+  window.location.href = `professor.html?class=${classCode}`;
+}
+
+function saveAsDraft() {
+  const title = document.getElementById('materialTitle').value.trim();
+  const description = document.getElementById('materialDescription').value.trim();
+  const classCode = localStorage.getItem('currentClassCode');
+
+  const material = {
+    id: Date.now(),
+    classCode,
+    title,
+    description,
+    type: 'material',
+    createdAt: new Date().toISOString(),
+    status: 'draft'
+  };
+
+  let workclasses = JSON.parse(localStorage.getItem('workclasses')) || [];
+  workclasses.push(material);
+  localStorage.setItem('workclasses', JSON.stringify(workclasses));
+
+  alert('Draft saved successfully!');
+  window.location.href = `professor.html?class=${classCode}`;
+}
+
+function showToast(message, type = 'success') {
+    const container = document.getElementById('toastContainer');
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    toast.textContent = message;
+    
+    container.appendChild(toast);
+    
+    // Trigger reflow
+    void toast.offsetWidth;
+    
+    // Add show class
+    toast.classList.add('show');
+    
+    // Remove toast after 3 seconds
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => {
+            container.removeChild(toast);
+        }, 300);
+    }, 3000);
+}
+</script>
+
+</body>
+</html>

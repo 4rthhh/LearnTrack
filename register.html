@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Track</title>
+    <link rel="stylesheet" href="./register.css">
+    <link rel="stylesheet" href="navbar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script defer src="register.js"></script>
+</head>
+<body class="register-page">
+    
+    <!-- NAV BAR -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="index.html">
+                <img src="img/sbhslogo.png" alt="LearnTrack" class="imglogo">
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About Us</a>
+            </div>
+        </div>
+        <button id="login-button">Login</button>
+    </nav>
+
+    <!-- REGISTER SECTION -->
+    <div class="container">
+        <div class="left-section">
+            <h1 class="Start-your">Start your learning journey with Learn Track</h1>
+            <p class="p1">LearnTrack is an automated system that monitors the progress of senior high school students at Integrated Innovation and Hospitality College in e-learning environments.</p>
+        </div>
+        <div class="right-section">
+            <h3>Getting started is easy</h3>
+            <p>Enter your information below to make an account</p>
+            
+            <!-- Fullname input with validation message -->
+            <div class="form-group">
+                <input type="text" id="fullname" placeholder="Full Name">
+                <span class="error-message" id="fullname-error"></span>
+            </div>
+            <div class="form-group">
+                <input type="text" id="username" placeholder="Username">
+                <span class="error-message" id="username-error"></span>
+            </div>
+            <div class="form-group">
+                <div class="password-container">
+                    <input type="password" id="password" placeholder="Password">
+                    <i class="fas fa-eye toggle-password" data-target="password"></i>
+                </div>
+                <span class="error-message" id="password-error"></span>
+            </div>
+            <div class="form-group">
+    <div class="password-container">
+        <input type="password" id="confirm-password" placeholder="Confirm Password">
+        <i class="fas fa-eye toggle-password" data-target="confirm-password"></i>
+    </div>
+    <span class="error-message" id="confirm-password-error"></span>
+</div>
+            <div class="form-group">
+                <input type="email" id="email" placeholder="Email">
+                <span class="error-message" id="email-error"></span>
+            </div>
+            <div class="form-group">
+                <div class="verification-container">
+                <input type="text" id="verification-code" placeholder="Verification Code">
+                <button id="send-verification-button">Send</button>
+            </div>
+                <span class="error-message" id="verification-code-error"></span>
+            </div>
+           
+            <div class="form-group">
+                <select id="role">
+                    <option value="">I am</option>
+                    <option value="Student">Student</option>
+                    <option value="Teacher">Teacher</option>
+                </select>
+                <span class="error-message" id="role-error"></span>
+            </div>
+            <button id="signup-button">Sign up</button>
+        </div>
+    </div>
+
+    <!-- Storytelling Section -->
+    <section class="storytelling-section">
+        <div class="story-container">
+            <div class="story-text">
+                <h2>Transform Your Learning Experience</h2>
+                <p>LearnTrack was created with a simple mission: to make learning more accessible, engaging, and effective for students at Integrated Innovation and Hospitality College.</p>
+                <p>Our platform helps students stay on track with their coursework, connect with teachers, and achieve their academic goals through personalized learning experiences.</p>
+            </div>
+            <div class="story-image">
+                <img src="img/learning.jpg" alt="Students studying together">
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="features-container">
+            <div class="features-heading">
+                <h2>Why Choose LearnTrack?</h2>
+                <p>Our platform offers everything you need to succeed in your academic journey</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Progress Tracking</h3>
+                    <p>Monitor your academic progress in real-time with detailed analytics and performance metrics.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-users"></i>
+                    <h3>Collaborative Learning</h3>
+                    <p>Connect with classmates and teachers through discussion forums and group projects.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-calendar-alt"></i>
+                    <h3>Organized Schedule</h3>
+                    <p>Keep track of assignments, exams, and deadlines with our intuitive calendar system.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>LearnTrack</h3>
+                <p>An automated system that monitors the progress of senior high school students at Integrated Innovation and Hospitality College.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a>
+                <a href="about.html">About Us</a>
+                <a href="#">Courses</a>
+                <a href="#">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Education St., Manila, Philippines</p>
+                <p><i class="fas fa-phone"></i> +63 123 456 7890</p>
+                <p><i class="fas fa-envelope"></i> info@learntrack.edu.ph</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 LearnTrack. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>You have successfully created an account. Do you want to sign in?</p>
+            <button id="confirm-button" class="confirm-btn">Confirm</button>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form id="login-form" class="login-content">
+                <h3>Login</h3>
+                <input type="text" id="login-username" placeholder="Username" required>
+                <div class="password-container">
+                    <input type="password" id="login-password" placeholder="Password" required>
+                    <i class="fas fa-eye toggle-password" data-target="login-password" style="cursor: pointer;"></i>
+                </div>
+                <!-- Error message for login -->
+                <p id="login-error" class="validation-message" style="display: none; color: red; font-size: 14px; margin-top: 5px;"></p>
+                <button class="login-btn" type="submit">Login</button>
+                <a href="#" class="forgotpass">Forgot password?</a>
+            </form>
+        </div>
+    </div>
+
+    
+    <!-- Toast Message Container -->
+    <div id="toast" class="toast"></div>
+</body>
+</html>

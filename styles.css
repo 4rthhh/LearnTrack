@@ -1,0 +1,188 @@
+.workclass-view {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  gap: 20px;
+  margin: 20px;
+}
+
+.workclass-main-panel {
+  background: white;
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.workclass-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.back-btn {
+  padding: 8px 16px;
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.back-btn:hover {
+  color: #1a73e8;
+}
+
+.workclass-type-badge {
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.workclass-title-section {
+  margin-bottom: 32px;
+}
+
+.workclass-title-section h1 {
+  font-size: 24px;
+  color: #202124;
+  margin-bottom: 8px;
+}
+
+.workclass-meta {
+  display: flex;
+  gap: 16px;
+  color: #5f6368;
+  font-size: 14px;
+}
+
+.workclass-instructions {
+  margin-bottom: 32px;
+}
+
+.workclass-instructions h2 {
+  font-size: 16px;
+  color: #202124;
+  margin-bottom: 16px;
+}
+
+.instructions-content {
+  color: #3c4043;
+  line-height: 1.5;
+}
+
+.workclass-side-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.class-info-card, .teacher-actions {
+  background: white;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.class-info-card h3, .teacher-actions h3 {
+  font-size: 16px;
+  color: #202124;
+  margin-bottom: 16px;
+}
+
+.points-info, .due-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  color: #5f6368;
+}
+
+.teacher-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.teacher-actions button {
+  width: 100%;
+  padding: 8px 16px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.workclass-comments {
+  grid-column: 1 / -1;
+  background: white;
+  border-radius: 8px;
+  padding: 24px;
+  margin: 0 20px;
+}
+
+.comment-input {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.comment-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.comment-input input {
+  flex: 1;
+  padding: 8px 16px;
+  border: 1px solid #dadce0;
+  border-radius: 4px;
+}
+
+.comment-input button {
+  padding: 8px 16px;
+  background: #1a73e8;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.comments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.comment-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #dadce0;
+}
+
+/* Badge colors */
+.assignment-badge {
+  background: #e8f0fe;
+  color: #1a73e8;
+}
+
+.quiz-badge {
+  background: #fce8e6;
+  color: #d93025;
+}
+
+.material-badge {
+  background: #e6f4ea;
+  color: #137333;
+}
+
+.question-badge {
+  background: #fef7e0;
+  color: #ea8600;
+}

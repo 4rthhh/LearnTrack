@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Activity | Learn Track</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    /* General styles */
+    body {
+      font-family: Arial;
+      font-size: large;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+     .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 20px;
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+
+    .close-btn {
+        background: none;
+        border: none;
+        color: #092235;
+        font-size: 24px;
+        cursor: pointer;
+        padding: 8px;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.2s;
+    }
+
+    .close-btn:hover {
+        background-color: #f0f0f0;
+    }
+
+    .navbar-title {
+        font-size: 18px;
+        font-weight: 500;
+        color: #092235;
+    }
+
+    /* Activity-specific styles */
+    .assignment-form-container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #092235;
+    }
+    
+    .form-input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+    
+    .form-textarea {
+      width: 100%;
+      min-height: 150px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      resize: vertical;
+    }
+    
+    .form-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 15px;
+        margin-top: 30px;
+    }
+    
+    .attachment-preview {
+      display: flex;
+      align-items: center;
+      margin-top: 10px;
+      padding: 8px;
+      background: #f9f9f9;
+      border-radius: 4px;
+    }
+    
+    .due-date-container {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    
+    .points-input {
+      width: 80px;
+    }
+
+    /* Add to your CSS */
+.char-counter {
+    text-align: right;
+    font-size: 12px;
+    color: #666;
+    margin-top: 5px;
+}
+
+.attachment-preview-image {
+    width: 60px;
+    height: 60px;
+    margin-right: 10px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.attachment-preview-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.attachment-info {
+    flex-grow: 1;
+    min-width: 0;
+}
+
+.attachment-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.attachment-previews-container {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-top: 10px;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+.modal-btn {
+        padding: 12px 24px;
+        font-size: 16px;
+        border-radius: 6px;
+        border: none;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        min-width: 120px;
+        height: 45px;
+    }
+
+    .modal-btn-create {
+        background-color: #4285f4;
+        color: white;
+    }
+
+    .modal-btn-create:hover {
+        background-color: #3367d6;
+    }
+
+    .modal-btn-draft {
+        background-color: #f8f9fa;
+        color: #4285f4;
+        border: 1px solid #4285f4;
+    }
+
+    .modal-btn-draft:hover {
+        background-color: #e8f0fe;
+    }
+
+    .modal-btn-cancel {
+        background-color: #f8f9fa;
+        color: #5f6368;
+        border: 1px solid #dadce0;
+    }
+
+    .modal-btn-cancel:hover {
+        background-color: #f1f3f4;
+    }
+
+    /* File upload button styles */
+    .file-upload-btn {
+        padding: 12px 24px;
+        font-size: 16px;
+        background-color: #4285f4;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .file-upload-btn:hover {
+        background-color: #3367d6;
+    }
+
+img {
+  height: 50px;
+}
+  </style>
+</head>
+<body>
+  
+
+  <nav class="navbar">
+    <button class="close-btn" onclick="window.history.back()">
+        <i class="fas fa-times"></i>
+    </button>
+    <div class="navbar-title">Create Activity</div>
+    <div style="width: 40px;"></div> <!-- Spacer for alignment -->
+</nav>
+
+  <div class="content">
+    
+
+    <div class="content-body">
+      <div class="assignment-form-container">
+<form id="activityForm" onsubmit="event.preventDefault(); createActivity()">
+
+          <div class="form-group">
+            <label class="form-label" for="assignmentTitle">Title</label>
+            <input type="text" id="assignmentTitle" class="form-input" placeholder="Activity title" required>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label" for="assignmentInstructions">Instructions</label>
+            <textarea id="assignmentInstructions" class="form-textarea" placeholder="Provide instructions for this activity..."></textarea>
+            <div class="char-counter" id="instructionsCounter">0/5000 characters</div>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Due Date</label>
+            <div class="due-date-container">
+              <input type="date" id="dueDate" class="form-input">   
+              <input type="time" id="dueTime" class="form-input">
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label" for="pointsPossible">Points</label>
+            <input type="number" id="pointsPossible" class="form-input points-input" placeholder="100" min="0">
+          </div>
+          
+          <!-- Update your file upload section -->
+<div class="form-group">
+  <label class="form-label">Attachments</label>
+  <div class="file-upload">
+      <label for="fileUpload" class="file-upload-btn">
+          <i class="fas fa-paperclip"></i> Add Files
+          <input type="file" id="fileUpload" style="display: none;" 
+                 onchange="handleFileUpload(event)" multiple>
+      </label>
+      <button type="button" class="file-upload-btn" onclick="openGoogleDrivePicker()">
+          <i class="fab fa-google-drive"></i> Google Drive
+      </button>
+      <span id="fileName" class="file-name-display">No files attached</span>
+  </div>
+  <div id="attachmentPreviews" class="attachment-previews-container"></div>
+  <div class="error-message" id="pointsError"></div>
+</div>
+          
+          <div class="form-group">
+            <label class="form-label">Activity Options</label>
+            <div style="display: flex; gap: 20px;">
+              <div>
+                <input type="checkbox" id="allowLateSubmissions">
+                <label for="allowLateSubmissions">Allow late submissions</label>
+              </div>
+              <div>
+                <input type="checkbox" id="gradeImmediately">
+                <label for="gradeImmediately">Grade immediately</label>
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-actions">
+            <button type="button" class="modal-btn modal-btn-cancel" onclick="window.history.back()">Cancel</button>
+            <button type="button" class="modal-btn modal-btn-draft" onclick="saveAsDraft()">Save as Draft</button>
+           <button type="button" class="modal-btn modal-btn-create" onclick="createActivity()">Create Activity</button>
+
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+ 
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize form
+    const form = document.getElementById('activityForm');
+    form.reset();
+    
+    // Verify class code exists
+    const classCode = localStorage.getItem('currentClassCode');
+    if (!classCode) {
+        alert('No class selected. Please try again.');
+        window.history.back();
+    }
+
+    // Character counter for instructions
+    const instructionsTextarea = document.getElementById('assignmentInstructions');
+    const counter = document.getElementById('instructionsCounter');
+    
+    if (instructionsTextarea && counter) {
+        instructionsTextarea.addEventListener('input', function() {
+            const count = this.value.length;
+            counter.textContent = `${count}/5000 characters`;
+            if (count > 5000) {
+                counter.style.color = 'red';
+            } else {
+                counter.style.color = '#666';
+            }
+        });
+    }
+
+    // Title validation
+    const titleInput = document.getElementById('assignmentTitle');
+    const submitBtn = document.querySelector('.modal-btn-create');
+    if (titleInput && submitBtn) {
+        titleInput.addEventListener('input', function() {
+            submitBtn.disabled = this.value.trim().length === 0;
+        });
+    }
+});
+
+    function handleFileUpload(event) {
+    const files = event.target.files;
+    const previewContainer = document.getElementById('attachmentPreviews');
+    previewContainer.innerHTML = '';
+    
+    if (!files || files.length === 0) {
+        document.getElementById('fileName').textContent = 'No files attached';
+        return;
+    }
+
+    // Validate files
+    const validFiles = Array.from(files).filter(file => {
+        if (file.size > 10 * 1024 * 1024) { // 10MB limit
+            showToast(`File ${file.name} exceeds size limit (10MB)`, 'error');
+            return false;
+        }
+        return true;
+    });
+
+    if (validFiles.length === 0) return;
+
+    // Display previews
+    validFiles.forEach(file => {
+        const preview = createFilePreview(file);
+        previewContainer.appendChild(preview);
+    });
+
+    document.getElementById('fileName').textContent = 
+        `${validFiles.length} file${validFiles.length > 1 ? 's' : ''} attached`;
+}
+
+function createFilePreview(file) {
+    const preview = document.createElement('div');
+    preview.className = 'attachment-preview';
+    
+    if (file.type.startsWith('image/')) {
+        preview.innerHTML = `
+            <div class="attachment-preview-image">
+                <img src="${URL.createObjectURL(file)}" alt="${file.name}">
+            </div>
+            <div class="attachment-info">
+                <div class="attachment-name">${file.name}</div>
+                <div class="attachment-size">${formatFileSize(file.size)}</div>
+            </div>
+            <button class="delete-btn" onclick="removeAttachment(this)">
+                <i class="fas fa-times"></i>
+            </button>
+        `;
+    } else {
+        preview.innerHTML = `
+            <div class="attachment-icon">
+                <i class="fas ${getFileIcon(file.type)}"></i>
+            </div>
+            <div class="attachment-info">
+                <div class="attachment-name">${file.name}</div>
+                <div class="attachment-size">${formatFileSize(file.size)}</div>
+            </div>
+            <button class="delete-btn" onclick="removeAttachment(this)">
+                <i class="fas fa-times"></i>
+            </button>
+        `;
+    }
+    
+    return preview;
+}
+    
+    function removeAttachment(button) {
+      const previewContainer = document.getElementById('attachmentPreviews');
+      previewContainer.removeChild(button.parentNode);
+      
+      if (previewContainer.children.length === 0) {
+        document.getElementById('fileName').textContent = 'No files attached';
+        document.getElementById('fileUpload').value = '';
+      }
+    }
+    
+// Update the createAssignment function in assignment-form.html
+async function createActivity() {
+    const title = document.getElementById('assignmentTitle').value.trim();
+    const instructions = document.getElementById('assignmentInstructions').value.trim();
+    const dueDate = document.getElementById('dueDate').value;
+    const dueTime = document.getElementById('dueTime').value;
+    const points = parseInt(document.getElementById('pointsPossible').value) || 100;
+    const allowLate = document.getElementById('allowLateSubmissions').checked;
+    const gradeImmediately = document.getElementById('gradeImmediately').checked;
+    const classCode = localStorage.getItem('currentClassCode');
+
+    if (!classCode) {
+        alert('Class context missing. Please return to class view.');
+        return;
+    }
+
+    if (!title) {
+        alert('Activity title is required.');
+        return;
+    }
+
+    let dueDateTime = null;
+    if (dueDate && dueTime) {
+        const dateTimeStr = `${dueDate}T${dueTime}`;
+        dueDateTime = new Date(dateTimeStr).toISOString();
+    }
+
+    // Get attachments data
+    const attachments = await getAttachmentsData();
+
+    const activity = {
+        CLASS_CODE: classCode,
+        TITLE: title,
+        INSTRUCTIONS: instructions,
+        DUEDATE: dueDateTime,
+        POINTSPOSSIBLE: points,
+        ALLOWLATESUBMISSIONS: allowLate,
+        GRADEIMMEDIATELY: gradeImmediately,
+        ATTACHMENTS: attachments,
+        CREATEDAT: new Date().toISOString(),
+        STATUS: 'published',
+        WORKCLASSTYPE: 'activity'
+    };
+
+    try {
+        const response = await fetch('http://localhost:3000/create-workclass', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(activity)
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to create activity');
+        }
+
+        const result = await response.json();
+        showToast('Activity created successfully!', 'success');
+        window.location.href = `professor.html?class=${classCode}`;
+    } catch (error) {
+        console.error('Error:', error);
+        showToast('Failed to create activity: ' + error.message, 'error');
+    }
+}
+
+
+function showError(fieldId, message) {
+    const field = document.getElementById(fieldId);
+    if (!field) return;
+
+    field.style.borderColor = '#ff4444';
+    
+    // Create or update error message
+    let errorDiv = document.getElementById(`${fieldId}Error`);
+    if (!errorDiv) {
+        errorDiv = document.createElement('div');
+        errorDiv.id = `${fieldId}Error`;
+        errorDiv.className = 'error-message';
+        field.parentNode.insertBefore(errorDiv, field.nextSibling);
+    }
+    
+    errorDiv.textContent = message;
+    errorDiv.style.color = '#ff4444';
+    errorDiv.style.fontSize = '12px';
+    errorDiv.style.marginTop = '5px';
+}
+    
+    // Reuse these functions from professor.js
+    function getFileIcon(fileType) {
+      if (fileType.includes('image')) return 'fa-image';
+      if (fileType.includes('pdf')) return 'fa-file-pdf';
+      if (fileType.includes('word')) return 'fa-file-word';
+      if (fileType.includes('excel')) return 'fa-file-excel';
+      if (fileType.includes('powerpoint')) return 'fa-file-powerpoint';
+      if (fileType.includes('zip')) return 'fa-file-archive';
+      return 'fa-file';
+    }
+    
+    function formatFileSize(bytes) {
+      if (bytes < 1024) return bytes + ' bytes';
+      else if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+      else return (bytes / 1048576).toFixed(1) + ' MB';
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+    // Verify class code exists
+    const classCode = localStorage.getItem('currentClassCode');
+    if (!classCode) {
+        showToast('No class selected. Please try again.', 'error');
+        window.history.back();
+        return;
+    }
+
+    // Reset form
+    const form = document.getElementById('assignmentForm');
+    if (form) {
+        form.reset();
+    }
+
+    // Add character counter for instructions
+    const instructionsTextarea = document.getElementById('activityInstructions');
+    const counter = document.getElementById('instructionsCounter');
+    
+    if (instructionsTextarea && counter) {
+        instructionsTextarea.addEventListener('input', function() {
+            const count = this.value.length;
+            counter.textContent = `${count}/5000 characters`;
+            if (count > 5000) {
+                counter.style.color = 'red';
+            } else {
+                counter.style.color = '#666';
+            }
+        });
+    }
+
+    // Add validation for the title field
+    const titleInput = document.getElementById('activityTitle');
+    const submitBtn = document.querySelector('.modal-btn-create');
+    if (titleInput && submitBtn) {
+        titleInput.addEventListener('input', function() {
+            submitBtn.disabled = this.value.trim().length === 0;
+        });
+    }
+});
+
+
+// Add real-time validation
+document.getElementById('activityTitle').addEventListener('input', function() {
+    const submitBtn = document.getElementById('activityForm').querySelector('button[type="submit"]');
+    submitBtn.disabled = this.value.trim().length === 0;
+});
+
+function validateDueDate() {
+    const dueDate = document.getElementById('dueDate').value;
+    const dueTime = document.getElementById('dueTime').value;
+    
+    if (!dueDate || !dueTime) return true;
+    
+    const dueDateTime = new Date(`${dueDate}T${dueTime}`);
+    const now = new Date();
+    
+    if (dueDateTime < now) {
+        alert('Due date cannot be in the past');
+        return false;
+    }
+    
+    return true;
+}
+
+
+function saveAsDraft() {
+    const activity = collectActivityData();
+    activity.status = 'draft';
+    
+    // Save to localStorage
+    let activities = JSON.parse(localStorage.getItem('activities')) || [];
+    activities.push(activity);
+    localStorage.setItem('activities', JSON.stringify(activities));
+    
+    alert('Draft saved successfully!');
+    window.location.href = `professor.html?class=${activity.classCode}`;
+}
+
+function collectActivityData() {
+    const classCode = localStorage.getItem('currentClassCode');
+    const title = document.getElementById('assignmentTitle').value.trim();
+    const instructions = document.getElementById('assignmentInstructions').value.trim();
+    const dueDate = document.getElementById('dueDate').value;
+    const dueTime = document.getElementById('dueTime').value;
+    const points = document.getElementById('pointsPossible').value || 100;
+    const allowLate = document.getElementById('allowLateSubmissions').checked;
+    const gradeImmediately = document.getElementById('gradeImmediately').checked;
+    
+    const dueDateTime = dueDate && dueTime ? new Date(`${dueDate}T${dueTime}`) : null;
+    
+    return {
+        id: Date.now(),
+        type: 'activity',
+        title,
+        instructions,
+        dueDate: dueDateTime ? dueDateTime.toISOString() : null,
+        pointsPossible: parseInt(points),
+        allowLateSubmissions: allowLate,
+        gradeImmediately,
+        attachments: [], // Will be added later if needed
+        created: new Date().toISOString(),
+        classCode
+    };
+}
+
+async function getAttachmentsData() {
+    const fileInput = document.getElementById('fileUpload');
+    if (!fileInput.files || fileInput.files.length === 0) return [];
+
+    const files = Array.from(fileInput.files);
+    const attachments = [];
+
+    for (const file of files) {
+        const base64Data = await readFileAsBase64(file);
+        attachments.push({
+            name: file.name,
+            type: file.type,
+            size: file.size,
+            lastModified: file.lastModified,
+            base64Data: base64Data
+        });
+    }
+
+    return attachments;
+}
+
+function saveAsDraft() {
+    const activity = collectActivityData();
+    activity.status = 'draft';
+    
+    // Save to localStorage
+    let activities = JSON.parse(localStorage.getItem('activities')) || [];
+    activities.push(activity);
+    localStorage.setItem('activities', JSON.stringify(activities));
+    
+    showToast('Draft saved successfully!', 'success');
+    window.location.href = `professor.html?class=${activity.classCode}`;
+}
+
+async function saveActivity(activity) {
+    try {
+        // Create activity in database
+        const response = await fetch('http://localhost:3000/create-workclass', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(activity)
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to create activity');
+        }
+
+        const result = await response.json();
+        
+        // Show success message
+        showToast('Activity created successfully!', 'success');
+        
+        // Redirect back to professor page with class code
+        window.location.href = `professor.html?class=${activity.classCode}`;
+
+    } catch (error) {
+        console.error('Error:', error);
+        showToast('Failed to create activity: ' + error.message, 'error');
+    }
+}
+
+function showToast(message, type = 'info') {
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+    toast.textContent = message;
+    
+    // Create toast container if it doesn't exist
+    let container = document.querySelector('.toast-container');
+    if (!container) {
+        container = document.createElement('div');
+        container.className = 'toast-container';
+        document.body.appendChild(container);
+    }
+    
+    container.appendChild(toast);
+    
+    // Show toast
+    setTimeout(() => toast.classList.add('show'), 100);
+    
+    // Remove toast
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 300);
+    }, 3000);
+}
+
+document.getElementById('activityForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  const activity = {
+    title: document.getElementById('title').value,
+    description: document.getElementById('description').value,
+    type: document.getElementById('type').value,
+    dueDate: document.getElementById('dueDate').value,
+  };
+
+  // Get existing activities
+  const activities = JSON.parse(localStorage.getItem('activities')) || [];
+
+  // Add new one
+  activities.push(activity);
+
+  // Save back to localStorage
+  localStorage.setItem('activities', JSON.stringify(activities));
+
+  alert('Activity saved!');
+  // Optionally redirect
+  window.location.href = 'professor.html';
+});
+
+  </script>
+
+  
+</body>
+</html>

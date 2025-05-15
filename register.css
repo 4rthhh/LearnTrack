@@ -1,0 +1,716 @@
+/* ====== ROOT VARIABLES & BASE STYLES ====== */
+:root {
+  --primary-color: #0A2845; /* Dark Blue */
+  --secondary-color: #092235; /* Darker Blue */
+  --accent-color: #00C6CF; /* Teal */
+  --accent-hover: #00A9B3;
+  --dark-button: #1B1A34; /* Dark Gray */
+  --text-color: #FFFFFF; /* White */
+  --background-color: #092235;
+  --form-background: white;
+  --form-text: black;
+  --border-color: #ccc;
+  --error-color: red;
+}
+
+/* Modify body to allow scrolling but hide scrollbars */
+body, html {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-y: auto; /* Allow vertical scrolling */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+body::-webkit-scrollbar, html::-webkit-scrollbar {
+  display: none;
+}
+
+/* ====== NAVBAR STYLES ====== */
+.navbar {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 98.5%;
+    z-index: 1000;
+    box-sizing: border-box;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* Minimal gap */
+}
+
+/* Adding the logo size styling with !important */
+.imglogo, .nav-left img {
+  width: clamp(20px, 6vw, 60px) !important; /* Very small logo */
+  height: auto !important;
+}
+
+.nav-links {
+  display: flex;
+  gap: 0.5rem; /* Minimal gap */
+}
+
+/* Update the nav links to be bigger */
+.nav-links a {
+  color: var(--text-color);
+  text-decoration: none;
+  font-size: 16px; /* Increased from 12px */
+  transition: all 0.3s ease;
+  padding: 70px 15px; /* Added padding for better click area */
+  border-radius: 4px;
+}
+
+.nav-links a:hover {
+  color: #000; /* Changed to black on hover */
+  background-color: rgba(255, 255, 255, 0.9);
+  transform: scale(1.05); /* Makes text slightly bigger on hover */
+}
+
+/* Update the login button styling */
+.navbar button {
+  background: transparent;
+  border: 1px solid var(--text-color);
+  border-radius: 4px;
+  padding: 5px 12px;
+  color: var(--text-color);
+  cursor: pointer;
+  margin-left: auto;
+  height: auto; /* Auto height instead of fixed */
+  width: auto; /* Auto width instead of fixed */
+  font-size: 16px; /* Increased from 12px */
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center text horizontally and vertically */
+}
+
+.navbar button:hover {
+  color: #000; /* Changed to black on hover */
+  background-color: rgba(255, 255, 255, 0.9);
+  transform: scale(1.05); /* Makes button slightly bigger on hover */
+  text-decoration: none; /* Removed underline */
+}
+
+/* ====== PAGE LAYOUT ====== */
+.register-page {
+  /* Updated background to match the blue gradient in the image */
+  background: linear-gradient(135deg, #87CEFA 0%, #E0F7FF 50%, #FFFFFF 100%);
+    color: var(--form-text);
+    min-height: calc(100vh - 70px); /* Subtract navbar height */
+    margin-top: 0; /* Remove any top margin */
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px 25px;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 2rem;
+    height: 800px;
+}
+
+/* ====== LEFT SECTION ====== */
+.left-section {
+  width: 50%;
+  padding-right: 25px;
+}
+
+.Start-your {
+  font-size: 80px;
+  margin-bottom: 1rem;
+  color: var(--primary-color); /* Changed to dark blue for better contrast on light background */
+  line-height: 1.1;
+}
+
+.left-section p {
+  font-size: 30px;
+  line-height: 1.4;
+  color: var(--primary-color); /* Changed to dark blue for better contrast */
+}
+
+/* ====== RIGHT SECTION (FORM) ====== */
+/* Update the right section to be longer instead of scrollable */
+.right-section {
+  background-color: var(--form-background);
+  color: var(--form-text);
+  padding: 30px;
+  border-radius: 5px;
+  width: 400px;
+  min-height: fit-content; /* Changed from fixed height to fit content */
+  overflow-y: visible; /* Remove scrollbar */
+  box-sizing: border-box;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Update the nav links hover - remove background */
+.nav-links a:hover {
+  color: #000; /* Changed to black on hover */
+  transform: scale(1.05); /* Makes text slightly bigger on hover */
+  background-color: transparent; /* Removed background */
+}
+
+/* Update the login button hover - remove background */
+.navbar button:hover {
+  color: #000; /* Changed to black on hover */
+  transform: scale(1.05); /* Makes button slightly bigger on hover */
+  text-decoration: none; /* Removed underline */
+  background-color: transparent; /* Removed background */
+}
+
+/* Add footer styles */
+.footer {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  padding: 40px 0;
+  margin-top: 50px;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+  padding: 0 20px;
+}
+
+.footer-section h3 {
+  font-size: 18px;
+  margin-bottom: 20px;
+  color: var(--accent-color);
+}
+
+.footer-section p, .footer-section a {
+  color: var(--text-color);
+  margin-bottom: 10px;
+  display: block;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.footer-section a:hover {
+  color: var(--accent-color);
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 30px;
+  font-size: 14px;
+}
+
+.social-icons {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.social-icons a {
+  color: var(--text-color);
+  font-size: 18px;
+}
+
+/* Add styles for storytelling section */
+.storytelling-section {
+    padding: 40px 0;
+    margin-top: 20px;
+    background-color: #f9f9f9;
+}
+
+.story-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.story-text h2 {
+  font-size: 36px;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+}
+
+.story-text p {
+  font-size: 18px;
+  line-height: 1.6;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.story-image img {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.features-section {
+  padding: 60px 0;
+}
+
+.features-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.features-heading {
+  margin-bottom: 50px;
+}
+
+.features-heading h2 {
+  font-size: 36px;
+  color: var(--primary-color);
+  margin-bottom: 15px;
+}
+
+.features-heading p {
+  font-size: 18px;
+  color: #666;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.feature-card {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+}
+
+.feature-card i {
+  font-size: 40px;
+  color: var(--accent-color);
+  margin-bottom: 20px;
+}
+
+.feature-card h3 {
+  font-size: 22px;
+  margin-bottom: 15px;
+  color: var(--primary-color);
+}
+
+.feature-card p {
+  font-size: 16px;
+  color: #666;
+}
+
+/* Responsive adjustments for new sections */
+@media (max-width: 768px) {
+  .story-container, .features-grid, .footer-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .story-image {
+    order: -1;
+  }
+}
+
+.right-section h3 {
+  margin-top: 0;
+  color: var(--form-text);
+}
+
+.right-section p {
+  margin-bottom: 1.5rem;
+  color: #666;
+}
+
+.right-section input,
+.right-section select {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+.right-section button {
+  width: 100%;
+  padding: 12px;
+  background-color: var(--dark-button);
+  border: none;
+  color: var(--text-color);
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.right-section button:hover {
+  background-color: #1B1A34;
+  text-decoration: underline;
+}
+
+/* ====== FORM ELEMENTS ====== */
+.password-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-container input {
+  flex: 1;
+  padding-right: 30px; /* Add space for the eye icon */
+}
+
+/* Style for the toggle password icon */
+.password-container .toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: black;
+}
+
+
+
+/* Verification container */
+.verification-container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.verification-container input {
+  flex: 7; /* 70% width */
+}
+
+.verification-container button {
+  flex: 3; /* 30% width */
+  padding: 10px 15px;
+  background-color: var(--dark-button);
+  color: var(--text-color);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  text-align: center;
+}
+
+.verification-container button:hover {
+  background-color: #1B1A34;
+  text-decoration: underline;
+}
+
+/* Dropdown */
+.right-section select {
+  width: 100%;
+  display: block;
+  margin: 10px 0;
+}
+
+/* Validation messages */
+.validation-message {
+  color: red; /* Red color for error messages */
+  font-size: 12px; /* Small font size */
+  margin-top: 5px; /* Space between the input and the message */
+  display: none; /* Hidden by default */
+  animation: fadeIn 0.3s ease-in-out; /* Smooth fade-in effect */
+}
+
+/* Validation messages */
+.right-section p.validation-message {
+  color: var(--error-color); /* Red color for error messages */
+  font-size: 12px;
+  margin: -5px 0 10px 0;
+  display: block;
+}
+
+/* Fade-in animation for the validation message */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ====== MODAL STYLES ====== */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1001;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  overflow: auto;
+}
+
+.modal-content {
+  background-color: var(--form-background);
+  margin: 15% auto;
+  padding: 30px;
+  border-radius: 5px;
+  width: 350px;
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.close {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #aaa;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: var(--form-text);
+}
+
+/* Login Modal Specific */
+#login-modal .modal-content {
+  padding: 30px;
+}
+
+.login-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.login-content h3 {
+  margin-top: 0;
+  text-align: center;
+  color: var(--form-text);
+}
+
+.login-content input {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #1B1A34;
+  color: var(--text-color);
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.login-btn:hover {
+  background-color:#1B1A34;
+  text-decoration:underline;
+
+}
+
+.forgotpass {
+  text-align: center;
+  color: #666;
+  text-decoration: none;
+  font-size: 0.9rem;
+  margin-top: 10px;
+}
+
+.forgotpass:hover {
+  color:#1B1A34;
+  text-decoration: underline;
+}
+
+/* Success Modal */
+.confirm-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: var(--accent-color);
+  color: var(--text-color);
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 20px;
+}
+
+.confirm-btn:hover {
+  background-color: var(--accent-hover);
+}
+
+/* ====== RESPONSIVE DESIGN ====== */
+@media (max-width: 1024px) {
+  .Start-your {
+    font-size: 60px;
+  }
+  
+  .left-section p {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    padding: 1rem;
+  }
+  
+  .left-section, .right-section {
+    width: 100%;
+    padding: 1rem;
+  }
+  
+  .Start-your {
+    font-size: 48px;
+  }
+  
+  .left-section p {
+    font-size: 20px;
+  }
+  
+  .right-section {
+    max-height: none;
+    min-height: auto;
+    width: 100%;
+    margin: 1rem 0;
+  }
+  
+  .navbar {
+    padding: 1rem;
+  }
+  
+  .nav-links {
+    gap: 1rem;
+  }
+  
+  .nav-links a {
+    font-size: 16px;
+  }
+  
+  .navbar button {
+    height: auto;
+    width: auto;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .Start-your {
+    font-size: 36px;
+  }
+  
+  .modal-content {
+    width: 90%;
+    padding: 20px;
+  }
+}
+
+.class-header {
+    position: relative;
+    z-index: 1;
+    margin-top: 70px; /* Increased space above the class-header */
+}
+
+header {
+    position: relative;
+    z-index: 2; /* Higher value to appear on top */
+    margin-bottom: 60px; /* Increased space below the header */
+}
+
+.class-header, header {
+    width: 100%;
+    height: auto;
+}
+
+.error-message {
+  color: #ff0000;
+  font-size: 12px;
+  display: block;
+}
+
+.form-group {
+  margin-bottom: 0px;
+}
+
+.password-container {
+  position: relative;
+  width: 100%;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #999;
+}
+
+.toggle-password:hover {
+  color: #333;
+}
+
+.toast {
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1002;
+  left: 50%;
+  bottom: 30px;
+  font-size: 14px;
+}
+
+.toast.show {
+  visibility: visible;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+

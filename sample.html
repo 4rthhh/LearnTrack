@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expand to Different Container</title>
+  <style>
+    .trigger-container {
+      width: 300px;
+      padding: 20px;
+      background-color: #f0f0f0;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-bottom: 10px;
+      transition: all 0.3s ease;
+    }
+    
+    .trigger-container:hover {
+      background-color: #e0e0e0;
+    }
+    
+    .hidden-container {
+      width: 300px;
+      padding: 20px;
+      background-color: #ffffff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease, padding 0.5s ease;
+    }
+    
+    .hidden-container.expanded {
+      max-height: 500px; /* Adjust based on your content */
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Trigger container -->
+  <div class="trigger-container" id="trigger">
+    <h3>Click to expand</h3>
+    <p>This is the container you click to reveal the hidden content</p>
+  </div>
+  
+  <!-- Hidden container that will be revealed -->
+  <div class="hidden-container" id="hiddenContent">
+    <h3>This is the expanded content</h3>
+    <p>This container appears when you click the trigger above.</p>
+    <p>You can put any content here - forms, text, images, etc.</p>
+  </div>
+
+  <script>
+    document.getElementById('trigger').addEventListener('click', function() {
+      document.getElementById('hiddenContent').classList.toggle('expanded');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Assignment | Learn Track</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    /* General styles */
+    body {
+      font-family: Arial;
+      font-size: large;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 20px;
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+
+    .close-btn {
+        background: none;
+        border: none;
+        color: #092235;
+        font-size: 24px;
+        cursor: pointer;
+        padding: 8px;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.2s;
+    }
+
+    .close-btn:hover {
+        background-color: #f0f0f0;
+    }
+
+    .navbar-title {
+        font-size: 18px;
+        font-weight: 500;
+        color: #092235;
+    }
+
+    /* Assignment-specific styles */
+    .assignment-form-container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #092235;
+    }
+    
+    .form-input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+    
+    .form-textarea {
+      width: 100%;
+      min-height: 150px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      resize: vertical;
+    }
+    
+    .form-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 15px;
+        margin-top: 30px;
+    }
+    
+    .attachment-preview {
+      display: flex;
+      align-items: center;
+      margin-top: 10px;
+      padding: 8px;
+      background: #f9f9f9;
+      border-radius: 4px;
+    }
+    
+    .due-date-container {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    
+    .points-input {
+      width: 80px;
+    }
+
+    /* Add to your CSS */
+.char-counter {
+    text-align: right;
+    font-size: 12px;
+    color: #666;
+    margin-top: 5px;
+}
+
+.attachment-preview-image {
+    width: 60px;
+    height: 60px;
+    margin-right: 10px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.attachment-preview-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.attachment-info {
+    flex-grow: 1;
+    min-width: 0;
+}
+
+.attachment-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.attachment-previews-container {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-top: 10px;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+.modal-btn {
+        padding: 12px 24px;
+        font-size: 16px;
+        border-radius: 6px;
+        border: none;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        min-width: 120px;
+        height: 45px;
+    }
+
+    .modal-btn-create {
+        background-color: #4285f4;
+        color: white;
+    }
+
+    .modal-btn-create:hover {
+        background-color: #3367d6;
+    }
+
+    .modal-btn-draft {
+        background-color: #f8f9fa;
+        color: #4285f4;
+        border: 1px solid #4285f4;
+    }
+
+    .modal-btn-draft:hover {
+        background-color: #e8f0fe;
+    }
+
+    .modal-btn-cancel {
+        background-color: #f8f9fa;
+        color: #5f6368;
+        border: 1px solid #dadce0;
+    }
+
+    .modal-btn-cancel:hover {
+        background-color: #f1f3f4;
+    }
+
+    /* File upload button styles */
+    .file-upload-btn {
+        padding: 12px 24px;
+        font-size: 16px;
+        background-color: #4285f4;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .file-upload-btn:hover {
+        background-color: #3367d6;
+    }
+
+img {
+  height: 50px;
+}
+
+/* Toast styles */
+.toast-container {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+}
+
+.toast {
+    min-width: 300px;
+    padding: 16px 24px;
+    border-radius: 8px;
+    background-color: #333;
+    color: white;
+    font-size: 16px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    margin-bottom: 10px;
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+    transform: translateY(100px);
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.toast.success {
+    background-color: #4CAF50;
+}
+
+.toast.error {
+    background-color: #f44336;
+}
+
+.toast.info {
+    background-color: #2196F3;
+}
+  </style>
+</head>
+<body>
+  
+  <!-- Replace the existing nav section -->
+<nav class="navbar">
+    <button class="close-btn" onclick="window.history.back()">
+        <i class="fas fa-times"></i>
+    </button>
+    <div class="navbar-title">Create Assignment</div>
+    <div style="width: 40px;"></div> <!-- Spacer for alignment -->
+</nav>
+
+  <div class="content">
+    
+
+    <div class="content-body">
+      <div class="assignment-form-container">
+        <form id="assignmentForm" onsubmit="event.preventDefault(); createAssignment()"></form>
+          <div class="form-group">
+            <label class="form-label" for="assignmentTitle">Title</label>
+            <input type="text" id="assignmentTitle" class="form-input" placeholder="Assignment title" required>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label" for="assignmentInstructions">Instructions</label>
+            <textarea id="assignmentInstructions" class="form-textarea" placeholder="Provide instructions for this assignemnt..."></textarea>
+            <div class="char-counter" id="instructionsCounter">0/5000 characters</div>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Due Date</label>
+            <div class="due-date-container">
+              <input type="date" id="dueDate" class="form-input">
+              <input type="time" id="dueTime" class="form-input">
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label" for="pointsPossible">Points</label>
+            <input type="number" id="pointsPossible" class="form-input points-input" placeholder="100" min="0">
+          </div>
+          
+          <!-- Update your file upload section -->
+<div class="form-group">
+  <label class="form-label">Attachments</label>
+  <div class="file-upload">
+      <label for="fileUpload" class="file-upload-btn">
+          <i class="fas fa-paperclip"></i> Add Files
+          <input type="file" id="fileUpload" style="display: none;" 
+                 onchange="handleFileUpload(event)" multiple>
+      </label>
+      <button type="button" class="file-upload-btn" onclick="openGoogleDrivePicker()">
+          <i class="fab fa-google-drive"></i> Google Drive
+      </button>
+      <span id="fileName" class="file-name-display">No files attached</span>
+  </div>
+  <div id="attachmentPreviews" class="attachment-previews-container"></div>
+  <div class="error-message" id="pointsError"></div>
+</div>
+          
+          <div class="form-group">
+            <label class="form-label">Activity Options</label>
+            <div style="display: flex; gap: 20px;">
+              <div>
+                <input type="checkbox" id="allowLateSubmissions">
+                <label for="allowLateSubmissions">Allow late submissions</label>
+              </div>
+              <div>
+                <input type="checkbox" id="gradeImmediately">
+                <label for="gradeImmediately">Grade immediately</label>
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-actions">
+            <button type="button" class="modal-btn modal-btn-cancel" onclick="window.history.back()">Cancel</button>
+            <button type="button" class="modal-btn modal-btn-draft" onclick="saveAsDraft()">Save as Draft</button>
+            <button type="button" class="modal-btn modal-btn-create" onclick="createAssignment()">Create Assignment</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div id="toastContainer" class="toast-container"></div>
+  <script>
+ 
+ document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('assignmentForm');
+    
+    // Reset any old form data
+    form.reset();
+    
+    // Add validation for the title field
+    document.getElementById('assignmentTitle').addEventListener('input', function() {
+        const submitBtn = document.querySelector('.modal-btn-create');
+        submitBtn.disabled = this.value.trim().length === 0;
+    });
+
+    // Verify class code exists
+    const classCode = localStorage.getItem('currentClassCode');
+    if (!classCode) {
+        alert('No class selected. Please try again.');
+        window.history.back();
+    }
+});
+
+    function handleFileUpload(event) {
+    const files = event.target.files;
+    const previewContainer = document.getElementById('attachmentPreviews');
+    previewContainer.innerHTML = '';
+    
+    if (!files || files.length === 0) {
+        document.getElementById('fileName').textContent = 'No files attached';
+        return;
+    }
+
+    // Validate files
+    const validFiles = Array.from(files).filter(file => {
+        if (file.size > 10 * 1024 * 1024) { // 10MB limit
+            showToast(`File ${file.name} exceeds size limit (10MB)`, 'error');
+            return false;
+        }
+        return true;
+    });
+
+    if (validFiles.length === 0) return;
+
+    // Display previews
+    validFiles.forEach(file => {
+        const preview = createFilePreview(file);
+        previewContainer.appendChild(preview);
+    });
+
+    document.getElementById('fileName').textContent = 
+        `${validFiles.length} file${validFiles.length > 1 ? 's' : ''} attached`;
+}
+
+function createFilePreview(file) {
+    const preview = document.createElement('div');
+    preview.className = 'attachment-preview';
+    
+    if (file.type.startsWith('image/')) {
+        preview.innerHTML = `
+            <div class="attachment-preview-image">
+                <img src="${URL.createObjectURL(file)}" alt="${file.name}">
+            </div>
+            <div class="attachment-info">
+                <div class="attachment-name">${file.name}</div>
+                <div class="attachment-size">${formatFileSize(file.size)}</div>
+            </div>
+            <button class="delete-btn" onclick="removeAttachment(this)">
+                <i class="fas fa-times"></i>
+            </button>
+        `;
+    } else {
+        preview.innerHTML = `
+            <div class="attachment-icon">
+                <i class="fas ${getFileIcon(file.type)}"></i>
+            </div>
+            <div class="attachment-info">
+                <div class="attachment-name">${file.name}</div>
+                <div class="attachment-size">${formatFileSize(file.size)}</div>
+            </div>
+            <button class="delete-btn" onclick="removeAttachment(this)">
+                <i class="fas fa-times"></i>
+            </button>
+        `;
+    }
+    
+    return preview;
+}
+    
+    function removeAttachment(button) {
+      const previewContainer = document.getElementById('attachmentPreviews');
+      previewContainer.removeChild(button.parentNode);
+      
+      if (previewContainer.children.length === 0) {
+        document.getElementById('fileName').textContent = 'No files attached';
+        document.getElementById('fileUpload').value = '';
+      }
+    }
+    
+// Update the createAssignment function in assignment-form.html
+async function createAssignment() {
+    const title = document.getElementById('assignmentTitle').value.trim();
+    const instructions = document.getElementById('assignmentInstructions').value.trim();
+    const dueDate = document.getElementById('dueDate').value;
+    const dueTime = document.getElementById('dueTime').value;
+    const points = parseInt(document.getElementById('pointsPossible').value) || 100;
+    const allowLate = document.getElementById('allowLateSubmissions').checked;
+    const gradeImmediately = document.getElementById('gradeImmediately').checked;
+    const classCode = localStorage.getItem('currentClassCode');
+
+    // Validate inputs
+    if (!title) {
+        showError('assignmentTitle', 'Title is required');
+        return;
+    }
+
+    if (isNaN(points)) {
+        showError('pointsPossible', 'Please enter a valid number');
+        return;
+    }
+
+    // Create due date string if provided
+    let dueDateTime = null;
+    if (dueDate && dueTime) {
+        const dueDateTimeString = `${dueDate}T${dueTime}`;  // Concatenate the date and time
+        dueDateTime = new Date(dueDateTimeString);
+        // Check if the constructed Date is valid
+        if (isNaN(dueDateTime.getTime())) {
+            console.error('Invalid date or time:', dueDateTimeString);
+            dueDateTime = null;
+        } else {
+            dueDateTime = dueDateTime.toISOString(); // Convert to ISO string
+        }
+    }
+
+    const base64Data = await getAttachmentsData()
+
+    // Log the dueDateTime to ensure correct formatting
+    console.log('Due Date AND TIME:', dueDateTime);
+    console.log(base64Data);
+
+    // Create assignment object
+    const assignment = {
+        id: Date.now().toString(),
+        classCode: classCode,
+        title: title,
+        instructions: instructions,
+        dueDate: dueDateTime,
+        pointsPossible: points,
+        allowLateSubmissions: allowLate,
+        gradeImmediately: gradeImmediately,
+        attachments: await getAttachmentsData(),
+        createdAt: new Date().toISOString(),
+        status: 'published',
+        type: 'assignment'
+    };
+
+    const assignmentData = {
+        CLASS_CODE: classCode,
+        TITLE: title,
+        INSTRUCTIONS: instructions,
+        DUEDATE: dueDateTime,
+        POINTSPOSSIBLE: points,
+        ALLOWLATESUBMISSIONS: allowLate,
+        GRADEIMMEDIATELY: gradeImmediately,
+        ATTACHMENTS: base64Data,
+        CREATEDAT: new Date().toISOString(),
+        STATUS: 'submitted',
+        WORKCLASSTYPE: 'assignment'
+    };
+
+    const response = await fetch('http://localhost:3000/create-workclass', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(assignmentData)
+    });
+
+    try {
+        // Save to localStorage
+        let workclasses = JSON.parse(localStorage.getItem('workclasses')) || [];
+        workclasses.push(assignment);
+        localStorage.setItem('workclasses', JSON.stringify(workclasses));
+
+        // Update class reference
+        let classes = JSON.parse(localStorage.getItem('classes')) || [];
+        const classIndex = classes.findIndex(c => c.CLASS_CODE === classCode);
+        if (classIndex !== -1) {
+            if (!classes[classIndex].workclasses) {
+                classes[classIndex].workclasses = [];
+            }
+            classes[classIndex].workclasses.push(assignment.id);
+            localStorage.setItem('classes', JSON.stringify(classes));
+        }
+
+        showToast('Assignment created successfully!');
+        window.location.href = `professor.html?class=${classCode}`;
+    } catch (error) {
+        console.error('Error:', error);
+        showToast('Failed to create assignment: ' + error.message, 'error');
+    }
+}
+
+function showError(fieldId, message) {
+    const field = document.getElementById(fieldId);
+    const errorElement = document.getElementById(`${fieldId}Error`) || field.nextElementSibling;
+    
+    field.style.borderColor = '#ff4444';
+    if (errorElement) {
+        errorElement.textContent = message;
+        errorElement.style.color = '#ff4444';
+    }
+}
+    
+    // Reuse these functions from professor.js
+    function getFileIcon(fileType) {
+      if (fileType.includes('image')) return 'fa-image';
+      if (fileType.includes('pdf')) return 'fa-file-pdf';
+      if (fileType.includes('word')) return 'fa-file-word';
+      if (fileType.includes('excel')) return 'fa-file-excel';
+      if (fileType.includes('powerpoint')) return 'fa-file-powerpoint';
+      if (fileType.includes('zip')) return 'fa-file-archive';
+      return 'fa-file';
+    }
+    
+    function formatFileSize(bytes) {
+      if (bytes < 1024) return bytes + ' bytes';
+      else if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+      else return (bytes / 1048576).toFixed(1) + ' MB';
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('assignmentForm');
+    
+    // Reset any old form data
+    form.reset();
+    
+    // Remove the form submit event listener since we're using button onclick
+    
+    // Add validation for the title field
+    document.getElementById('assignmentTitle').addEventListener('input', function() {
+        const submitBtn = form.querySelector('.modal-btn-create');
+        submitBtn.disabled = this.value.trim().length === 0;
+    });
+});
+
+
+// Add real-time validation
+document.getElementById('assignmentTitle').addEventListener('input', function() {
+    const submitBtn = document.getElementById('assignmentForm').querySelector('button[type="submit"]');
+    submitBtn.disabled = this.value.trim().length === 0;
+});
+
+function validateDueDate() {
+    const dueDate = document.getElementById('dueDate').value;
+    const dueTime = document.getElementById('dueTime').value;
+    
+    if (!dueDate || !dueTime) return true;
+    
+    const dueDateTime = new Date(`${dueDate}T${dueTime}`);
+    const now = new Date();
+    
+    if (dueDateTime < now) {
+        alert('Due date cannot be in the past');
+        return false;
+    }
+    
+    return true;
+}
+
+
+function saveAsDraft() {
+    const assignment = collectAssignmentData();
+    assignment.status = 'draft';
+    
+    // Save to localStorage
+    let assignments = JSON.parse(localStorage.getItem('assignments')) || [];
+    assignments.push(assignment);
+    localStorage.setItem('assignments', JSON.stringify(assignments));
+    
+    alert('Draft saved successfully!');
+    window.location.href = `professor.html?class=${assignment.classCode}`;
+}
+
+function collectAssignmentData() {
+    const classCode = localStorage.getItem('currentClassCode');
+    const title = document.getElementById('assignmentTitle').value.trim();
+    const instructions = document.getElementById('assignmentInstructions').value.trim();
+    const dueDate = document.getElementById('dueDate').value;
+    const dueTime = document.getElementById('dueTime').value;
+    const points = document.getElementById('pointsPossible').value || 100;
+    const allowLate = document.getElementById('allowLateSubmissions').checked;
+    const gradeImmediately = document.getElementById('gradeImmediately').checked;
+    
+    const dueDateTime = dueDate && dueTime ? new Date(`${dueDate}T${dueTime}`) : null;
+    
+    return {
+        id: Date.now(),
+        type: 'assignment',
+        title,
+        instructions,
+        dueDate: dueDateTime ? dueDateTime.toISOString() : null,
+        pointsPossible: parseInt(points),
+        allowLateSubmissions: allowLate,
+        gradeImmediately,
+        attachments: getAttachmentsData(),
+        created: new Date().toISOString(),
+        classCode
+    };
+}
+
+function getAttachmentsData() {
+    const fileInput = document.getElementById('fileUpload');
+    if (!fileInput.files || fileInput.files.length === 0) return Promise.resolve([]);
+
+    const files = Array.from(fileInput.files);
+
+    const readFileAsBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => {
+                resolve({
+                    name: file.name,
+                    type: file.type,
+                    size: file.size,
+                    lastModified: file.lastModified,
+                    base64Data: reader.result
+                });
+            };
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
+        });
+    };
+
+    return Promise.all(files.map(readFileAsBase64));
+    
+}
+
+async function saveAssignment(assignment) {
+    // Get current workclasses
+    let workclasses = JSON.parse(localStorage.getItem('workclasses')) || [];
+    workclasses.push(assignment);
+    localStorage.setItem('workclasses', JSON.stringify(workclasses));
+    
+    // Update class reference
+    let classes = JSON.parse(localStorage.getItem('classes')) || [];
+    const classIndex = classes.findIndex(c => c.CLASS_CODE === assignment.classCode);
+    if (classIndex !== -1) {
+        if (!classes[classIndex].workclasses) {
+            classes[classIndex].workclasses = [];
+        }
+        classes[classIndex].workclasses.push(assignment.id);
+        localStorage.setItem('classes', JSON.stringify(classes));
+    }
+
+    return assignment;
+}
+
+function showToast(message, type = 'info') {
+    alert(message); // Simple alert fallback
+}
+
+function showToast(message, type = 'success') {
+    const container = document.getElementById('toastContainer');
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    toast.textContent = message;
+    
+    container.appendChild(toast);
+    
+    // Trigger reflow
+    void toast.offsetWidth;
+    
+    // Add show class
+    toast.classList.add('show');
+    
+    // Remove toast after 3 seconds
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => {
+            container.removeChild(toast);
+        }, 300);
+    }, 3000);
+}
+
+  </script>
+
+  
+
+</body>
+</html>
