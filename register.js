@@ -105,36 +105,41 @@ document.addEventListener("DOMContentLoaded", function () {
     
                 // Updated signup process
                 try {
-                    const signupResponse = await fetch(`${API_URL}/signup`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            FULLNAME: fullname,
-                            USERNAME: username,
-                            PASSWORD: password,
-                            EMAIL: email,
-                            ROLE: role
-                        })
-                    });
-    
-                    const signupData = await signupResponse.json();
-    
-                    if (signupResponse.ok) {
-                        showToast("Signup successful! Please login.", "success");
-                        document.getElementById("login-modal").style.display = "block";
-                    } else {
-                        if (signupData.field === 'username') {
-                            document.getElementById("username-error").textContent = signupData.message;
-                        } else {
-                            showToast(signupData.message || "Registration failed", "error");
-                        }
-                    }
-                } catch (error) {
-                    console.error('Signup error:', error);
-                    showToast("An error occurred during signup. Please try again.", "error");
-                }
+    const signupResponse = await fetch(`${API_URL}/signup`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            FULLNAME: fullname,
+            USERNAME: username,
+            PASSWORD: password,
+            EMAIL: email,
+            ROLE: role
+        })
+    });
+
+    const responseData = await signupResponse.json();
+
+    if (!signupResponse.ok) {
+        if (responseData.field === 'username') {
+            // Show username error under the input field
+            document.getElementById("username-error").textContent = responseData.message;
+        } else {
+            // Show other errors as toast
+            throw new Error(responseData.message || 'Signup failed');
+        }
+        return;
+    }
+
+    showToast("Signup successful! Please login.", "success");
+    document.getElementById("login-modal").style.display = "block";
+} catch (error) {
+    console.error('Signup error:', error);
+    if (!error.message.includes('Username already exists')) {
+        showToast(error.message, "error");
+    }
+}
             } catch (error) {
                 document.getElementById("verification-code-error").textContent = error.message;
             }
@@ -309,3 +314,5 @@ function showToast(message, type = 'success') {
         toast.classList.remove("show");
     }, 3000);
 }
+
+

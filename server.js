@@ -52,7 +52,6 @@ app.post('/signup', async (req, res) => {
 
     try {
         const collection = ROLE === "Student" ? "LT_Students" : "LT_Teachers";
-
         const database = client.db(dbName);
         const accounts = database.collection(collection);
 
@@ -60,7 +59,10 @@ app.post('/signup', async (req, res) => {
         const existingUser = await accounts.findOne({ USERNAME: USERNAME });
 
         if (existingUser) {
-            return res.status(409).send('Username already exists. Please choose a different one.');
+            return res.status(409).json({ 
+                message: 'Username already exists',
+                field: 'username'
+            });
         }
 
         // Proceed to insert new user
@@ -72,10 +74,16 @@ app.post('/signup', async (req, res) => {
             ROLES: ROLE
         });
 
-        res.status(200).send('User registered successfully.');
+        res.status(200).json({ 
+            message: 'User registered successfully',
+            success: true 
+        });
     } catch (err) {
         console.error(err);
-        res.status(500).send('Error saving user to database.');
+        res.status(500).json({ 
+            message: 'Error saving user to database',
+            success: false
+        });
     }
 });
 
@@ -1386,8 +1394,6 @@ app.get("/student-classes", async (req, res) => {
 
 
 
-
-
 // --- START SERVER AND CONNECT DB ---
 client.connect()
     .then(() => {
@@ -1398,5 +1404,7 @@ client.connect()
     .catch(err => {
         console.error("❌ Failed to connect to MongoDB", err);
     });
+
+
 
     
